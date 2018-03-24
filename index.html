@@ -23,35 +23,38 @@
 
 </head>
 <body>
-    <div class = "container">
-            <div class="jumbotron text-center" id = "jumbotron">
-            
-                    <h1>Welcome to Netflix Giphs!</h1>
-                    <h3>Click on any button to enjoy some giphs from popular Netflix shows!</h3>
-                    <h3>Or search for your own favorite!</h3>
 
-                <br></br>
+<div class="container">
+        <div class="jumbotron text-center" id="jumbotron">
+                <h1>Welcome to Netflix Giphs!</h1>
+                <h3>Click on any button to enjoy some giphs from popular Netflix shows!</h3>
+                <h3>Or search for your own favorite!</h3>
 
-                <div class = "row" id = "buttonsHolder">
-        
-                </div>
-
-                <div class= "col-lg-9" id = "input-group">
-                        <input type="search" style= "width: 750px;" class="form-control" placeholder="Type in the name of a Netflix show...">
-                </div>
-
-               <!-- <div class = "col-lg-6" id = "searchAndClearButtons"> -->
+                <div class="container">
+                        <div class="row" id = "buttonsHolder">
+                        </div>
+                        <div class= "col-lg-9" id = "input-group">
+                        <input type="search" style= "width: 780px;" class="form-control" placeholder="Type in the name of a Netflix show...">
+                        </div>
+                        <div>
                         <button type="Submit" style= "width: 100px;" id ="search" class="btn btn-default">Search</button>
-                        <button type="Submit" style= "width: 100px;" id ="clear" class="btn btn-default">Clear</button>  
+                        </div>
+                </div>
+        </div>
+</div>
 
 
-   <div class = "container" id = "giphHolder"></div>
+<!-- Area for Giphs -->
+<div class = "container">
+        <div class = "box">
+                <div id = "gifHolder">
+                </div>
+        </div>
+</div>
+
 
 <!-- JavaScript --> 
 <script src="app.js"></script>
-
-
-
 
 </body>
 </html>

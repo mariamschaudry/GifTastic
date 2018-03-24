@@ -1,12 +1,10 @@
 
-.jumbotron {
-    margin-top: 20px; 
+#jumbotron {
+    margin-top: 20px;    
+
 }
 
-/* #giphContainer
-
-/*body {
-    background: url("../CSS/Images/netflix.jpg");  
-    display: flex; 
-    flex-direction: column;
-} */
+#gifHolder {
+   height: 200px; 
+   width: 200px; 
+}
