@@ -17,109 +17,112 @@ var netflixShows = ["Shameless", "Girl Boss", "Narcos", "New Girl", "Santa Clari
 // Creating buttons from the array //
 
 function showButtons () {
+    $('#buttonsHolder').empty(); 
 
 //Looping through array //
    for (var i = 0; i < netflixShows.length; i++) {
 
-       var addButton = $("<button>");
+       var a = $("<button>");
+       a.addClass("btn btn -default");
+       a.attr("data-name", netflixShows[i]); 
 
-       addButton.addClass("btn btn-default");
-       addButton.attr("type", "button"); 
-       addButton.append(netflixShows[i]);
-       addButton.attr("value", netflixShows[i]);
+    // Provide Button Text with value of Netflix Shows //
+       a.text(netflixShows[i]);
 
-       $("#buttonsHolder").append(addButton);  // <-- Appending the new button to it's HTML div //
+       $("#buttonsHolder").append(a);  // <-- Appending the new button to it's HTML div //
+       $("#userInput").val('');
+    };
+}; 
 
-       console.log(netflixShows);
-    }
-}
+// Event Listener //
 
-showButtons(); // <-- Calling my function 
+$("#search").on("click", function (event) {
+    event.preventDefault(); // <-- prevents the page from refreshing
 
-// Getting API info using AJAX //
+    var tvShow = $("#userInput").val().trim(); // <-- Get user text from input box 
 
-// Constructing a queryURL
+    netflixShows.push(tvShow); // <-- Adding user input to our array
 
-function getGifs(tvShow) {
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=MK0cvZOOOfzvXyxD6dKC4HumUEx6jLUE&limit=10";
+    showButtons ();
+});
 
-    console.log(queryURL);
+$(document).on("click", ".tvShow", displayGifs) 
 
-//var apiKey = "MK0cvZOOOfzvXyxD6dKC4HumUEx6jLUE"//
-
-// Performing AJAX request with queryURL //
-    
-$.ajax({
-    url: queryURL, 
-    method: "GET", 
-}).done(function(response) {
-    console.log(response.data);
-    imageResults(response); 
+showButtons(); // <-- Display tv show list 
 
 });
 
+// Get and store value from button //
+function displayGifs() {
+   var tvShow = $(this).attr("data-name");
+
+// Constructing queryURL
+    //var apiKey = "MK0cvZOOOfzvXyxD6dKC4HumUEx6jLUE";//
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=jMK0cvZOOOfzvXyxD6dKC4HumUEx6jLUE&limit=10";
+console.log(queryURL);
+// Perfoming an AJAX request 
+
+$.ajax({
+    url: queryURL,
+    method: "GET"
+    }).done(function(response) {
+
+  // Storing the array as variable name 
+     var giphy = response.data; 
+
+  // Looping through the array in queryURL
+
+    for(var i=0; i<giphy.length; i++){
+     
+    var netflixGifs = $('id="gifHolder')
+
+//  Gif Rating //
+    var pOne = $("<p>").text("Rating: " + giphyArr[i].rating);
+    var netflixImage = $('<img data-state="still">')
+
+    netflixImage.attr('src', giphy[i].images.fixed_height_still.url)
+    netflixImage.attr('data-animate', giphy[i].images.fixed_height.url)
+    netflixImage.attr('data-still', giphy[i].images.fixed_height_still.url)
+    netflixImage.attr('class', 'gif img-responsive')
+            
+    netflixdGifs.append(pOne);
+    netflixGifs.append(netflixImage);
+
+//Fit the gifs that iterate out onto page into their own rows of 2 with 5 total rows
+if (i < 2){
+    $('#gifRowOne').append(foodGifs)
+  }
+  else if (i > 2 && i < 5) {
+    $('#gifRowTwo').append(foodGifs);
+  }
+  else if (i > 4 && i < 7){
+    $('#gifRowThree').append(foodGifs);
+  }
+  else if (i > 6 && i < 9) {
+    $('#gifRowFour').append(foodGifs);
+  }
+  else if (i > 8 && i < 11) {
+    $('#gifRowFive').append(foodGifs);
+  };
 }
-// Creating images in the div //
-
-function imageResults(response) {
-    $("#gifHolder").empty(); 
-
-    for (var j = 0; i <response.data.length; j++) {
-        var gifImg = $("<img>"); 
-        gifImg.addClass("gifImgs img-thumbmail grid-item");
-        gifImg.attr("src", response.data[j].images.fixed_width_still.url);
-        gifImg.attr("data-state", "still");
-        gifImg.attr("data-still", response.data[j].images.fixed_width_still.url);
-        gifImg.attr("data-animate", results[j].images.fixed_width.url);
-
-    // Creating a paragraph tag with the gif's rating & appending it//
-        var gifRating = $("<p>");
-        gifRating.append ("Rating: " + response.data[j].rating); 
-
-    // Creating a div tag for gif's rating & appending it //
-        var gifWithRating = $("<div>");
-        gifWithRating.append(gifImg, gifRating);
-        gifWithRating.addClass("gridItem");
-        $("#gifHolder").append(gifWithRating);
-    }
-
-}
-
-// On Click Functions //
-
-// When user adds a new button //
-
-    $(document).on("click", ".gifImgs", function() {
-        var state = $(this).attr("data-state");
-
-        if (state === "still") {
-            $(this).attr("src", $(this).attr("data-animate"));
-            $(this).attr("data-state", "animate");
-        } else {
-            $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
-        }
-    });
-    
-    // Existing Buttons //
-
-    $(document).on("click", ".topicBtn", function() {
-        console.log("click");
-        getGifs($(this).attr("value"));
-        console.log($(this).attr("value"));
-    });
-
-    $("#search").on("click", function() {
-        event.preventDefault();
-
-        var searchShow = $(".form-control").val();
-        console.log(searchShow);
-        $(".form-control").empty();
-
-        netflixShows.push(searchShow);
-        $("#buttonsHolder").empty();
-        showButtons();
-        getGifs(searchShow);
-    });
-
 })
+}
+
+
+// Toggle Function //
+$(document).on("click", ".gif", function(){
+
+var still = $(this).attr("data-still");
+var animate = $(this).attr("data-animate");
+
+if ($(this).attr("data-state") === "still"){
+  $(this).attr("src", animate);
+  $(this).attr("data-state", "animate");
+}
+else {
+  $(this).attr("src", still);
+  $(this).attr("data-state", "still");
+}
+})
+    
