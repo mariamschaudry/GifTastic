@@ -75,13 +75,15 @@ $(document).ready(function () {
 
             // Looping through the array in queryURL
 
+            $("#gifHolder").empty();
+            
             for (var i = 0; i < giphy.length; i++) {
 
                 var netflixGifs = $('#gifHolder')
 
                 //  Gif Rating //
                 var pOne = $("<p>").text("Rating: " + [i].rating);
-                var netflixImage = $('<img data-state="still">')
+                var netflixImage = $('<img giphy-state ="animate">')
 
                 netflixImage.attr('src', giphy[i].images.fixed_height_still.url)
                 netflixImage.attr('data-animate', giphy[i].images.fixed_height.url)
