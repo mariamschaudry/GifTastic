@@ -3,8 +3,8 @@
     margin-top: 20px;    
 
 }
-
-#gifHolder {
-   height: 200px; 
-   width: 200px; 
+body {
+    background-image: url('../CSS/Images/popcorn.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
