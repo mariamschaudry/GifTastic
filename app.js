@@ -76,13 +76,14 @@ $(document).ready(function () {
             // Looping through the array in queryURL
 
             $("#gifHolder").empty();
-            
+
             for (var i = 0; i < giphy.length; i++) {
 
                 var netflixGifs = $('#gifHolder')
 
                 //  Gif Rating //
-                var pOne = $("<p>").text("Rating: " + [i].rating);
+                var pOne = $("<p>").text("Rating: " + giphy[i].rating);
+
                 var netflixImage = $('<img giphy-state ="animate">')
 
                 netflixImage.attr('src', giphy[i].images.fixed_height_still.url)
@@ -103,6 +104,11 @@ $(document).ready(function () {
     })
 
     // Toggle Function //
+
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+
     $(document).on("click", ".gif", function () {
 
         var still = $(this).attr("data-still");
